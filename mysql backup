@@ -1,4 +1,4 @@
-单循环
+分库备份
 #!/bin/bash
 DATE=$(date +%F_%H-%M-%S)
 HOST=localhost
@@ -16,7 +16,7 @@ fi
 done
 
 
-多循环
+分表备份
 #!/bin/bash
 DATE=$(date +%F_%H-%M-%S)
 HOST=localhost
