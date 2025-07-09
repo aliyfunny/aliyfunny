@@ -1,0 +1,6 @@
+URL="http://192.168.22.191/index.html"
+THHP_CODE=`curl -o /dev/null -s -w "%{http_code}" "${URL}"`
+if [ $HTTP_CODE != 200 ]
+then
+echo -e "apache code:"$HTTP_CODE""
+fi
