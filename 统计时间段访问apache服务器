@@ -17,3 +17,9 @@ awk -F "[ /:]" '$7":"$8>="13:30" && $7":"$8<="14:30"' /var/log/httpd/access_log
 # 日志文档内容里面,第 1 列是远程主机的 IP 地址,使用 awk 单独显示第 1 列即可
 awk -F "[ /:]" '$7":"$8>="13:30" && $7":"$8<="14:30"{print $1}'
 /var/log/httpd/access_log
+
+
+
+# 统计每个远程 IP 访问了本机 apache 几次?
+#!/bin/bash
+awk '{ip[$1]++}END{for(i in ip){print ip[i],i}}' /var/log/httpd/access_log
