@@ -1,0 +1,30 @@
+监控主机的磁盘空间,当使用空间超过90％就通过发mail来发警告
+#!/bin/bash
+#monitor available disk space
+#提取本服务器的IP地址信息
+IP=`ifconfig eth0 | grep "inet addr" | cut -f 2 -d ":" | cut -f 1 -d " "`
+SPACE=` df -hP | awk '{print int($5)}'`
+if [ $SPACE -ge 90 ]
+then
+echo "$IP 服务器 磁盘空间 使用率已经超过90%，请及时处理。"|mail -s "$IP 服务器硬盘告警，公众号：网络技术干货圈" fty89@163.com
+fi
+
+
+
+
+
+#!/bin/bash
+#Insepct Harddisk , If the remaining space is more than 80%, the message is sent
+to the wl
+#Tue Aug 2 09:45:56 CST 2016
+PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/wl/bin
+export PATH
+for RemainingSpace in $(df -h | awk '{print $5}' | grep -v 'Use' | sed -e
+'s/[%]//g')
+do
+if [[ $RemainingSpace > 80 ]];then
+echo -e "$RemainingSpace"
+echo -e "$(df -h | grep $RemainingSpace)" > /service/script/.HarddiskWarning
+mail -s "disk Warning" wl < /service/script/.HarddiskWarning
+fi
+done
