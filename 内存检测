@@ -1,0 +1,10 @@
+#!/bin/bash
+#Inspect Memory : If the memory is less than 500 , then send mail to wl
+#Tue Aug 2 09:13:43 CST 2016
+PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/wl/bin
+export PATH
+MEM=$(free -m | grep "Mem" | awk '{print $4}')
+if [[ MEM < 500 ]];then
+echo -e "Memory Warning : Memory free $MEM" > /service/script/.MemoryWarning
+mail -s "Memory Warning" wl < /service/script/.MemoryWarning
+fi
